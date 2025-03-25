@@ -1,0 +1,64 @@
+python -m venv venv_new
+venv_new\Scripts\activate
+pip install pytest pytest-django
+pip install django
+python -m pytest
+pytest events/tests/test_models.py
+pytest -v
+
+----Result of pytest-----------
+
+====================================================== test session starts =======================================================
+platform win32 -- Python 3.12.2, pytest-8.3.5, pluggy-1.5.0 -- D:\Eventease\venv_new\Scripts\python.exe
+cachedir: .pytest_cache
+django: version: 5.1.7, settings: Eventease.settings (from ini)
+rootdir: D:\Eventease\Eventease
+configfile: pytest.ini
+plugins: django-4.10.0
+collected 6 items
+
+events/tests/test_models.py::test_create_event PASSED                                                                       [ 16%]
+events/tests/test_views.py::test_event_list_view FAILED                                                                     [ 33%]
+events/tests/test_views.py::test_add_event_view PASSED                                                                      [ 50%]
+events/tests/test_urls.py::test_event_list_url PASSED                                                                       [ 66%] 
+events/tests/test_urls.py::test_add_event_url PASSED                                                                        [ 83%] 
+events/tests/test_urls.py::test_event_details_url PASSED                                                                    [100%] 
+
+============================================================ FAILURES ============================================================ 
+______________________________________________________ test_event_list_view ______________________________________________________ 
+
+client = <django.test.client.Client object at 0x0000023200E7DF70>
+
+    @pytest.mark.django_db
+    def test_event_list_view(client):
+        """Test event list page loads correctly"""
+        response = client.get(reverse("events"))
+>       assert response.status_code == 200
+E       assert 302 == 200
+E        +  where 302 = <HttpResponseRedirect status_code=302, "text/html; charset=utf-8", url="/login/?next=/events/">.status_code
+
+        """Test event list page loads correctly"""
+        response = client.get(reverse("events"))
+>       assert response.status_code == 200
+E       assert 302 == 200
+E        +  where 302 = <HttpResponseRedirect status_code=302, "text/html; charset=utf-8", url="/login/?next=/events/">.status_code
+
+        response = client.get(reverse("events"))
+>       assert response.status_code == 200
+E       assert 302 == 200
+E        +  where 302 = <HttpResponseRedirect status_code=302, "text/html; charset=utf-8", url="/login/?next=/events/">.status_code
+
+>       assert response.status_code == 200
+E       assert 302 == 200
+E        +  where 302 = <HttpResponseRedirect status_code=302, "text/html; charset=utf-8", url="/login/?next=/events/">.status_code
+
+E       assert 302 == 200
+E        +  where 302 = <HttpResponseRedirect status_code=302, "text/html; charset=utf-8", url="/login/?next=/events/">.status_code
+
+E        +  where 302 = <HttpResponseRedirect status_code=302, "text/html; charset=utf-8", url="/login/?next=/events/">.status_code
+
+
+events\tests\test_views.py:11: AssertionError
+==================================================== short test summary info ===================================================== 
+FAILED events/tests/test_views.py::test_event_list_view - assert 302 == 200
+================================================== 1 failed, 5 passed in 2.90s =====================================
